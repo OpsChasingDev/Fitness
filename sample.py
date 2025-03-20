@@ -1,13 +1,14 @@
 from garminconnect import Garmin
 import json
+import getpass  # Secure password input
 
-# Replace with your Garmin credentials
-EMAIL = "your-email@example.com"
-PASSWORD = "your-password"
+# Prompt user for credentials
+email = input("Enter your Garmin email: ")
+password = getpass.getpass("Enter your Garmin password: ")  # Secure input
 
 try:
     # Authenticate with Garmin Connect
-    client = Garmin(EMAIL, PASSWORD)
+    client = Garmin(email, password)
     client.login()
 
     # Fetch today's step count
@@ -20,9 +21,9 @@ try:
     body_composition = client.get_body_composition("today")
 
     # Print the results
-    print("Steps Data:", json.dumps(steps_data, indent=4))
-    print("Heart Rate Data:", json.dumps(heart_rate_data, indent=4))
-    print("Body Composition:", json.dumps(body_composition, indent=4))
+    print("\nSteps Data:", json.dumps(steps_data, indent=4))
+    print("\nHeart Rate Data:", json.dumps(heart_rate_data, indent=4))
+    print("\nBody Composition:", json.dumps(body_composition, indent=4))
 
 except Exception as e:
     print(f"Error: {e}")
